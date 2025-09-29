@@ -1,0 +1,48 @@
+<mat-toolbar>
+  <span>Angular CSP Demo</span>
+</mat-toolbar>
+
+<div class="container">
+  <mat-card appearance="outlined" class="card">
+    <mat-card-header>
+      <mat-card-title>Styles</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p style="color: red">
+        This text is red when inline styles are permitted by CSP (otherwise blocked).
+      </p>
+      <p [ngStyle]="{color: 'orange'}">
+        This text is orange when ngStyle is permitted by CSP (otherwise blocked).
+      </p>
+
+      <p class="safe-text">
+        This text is green via CSS class from bundle (works with strict CSP).
+      </p>
+
+      <button mat-raised-button (click)="injectStyleTag()">
+        Inject style tag
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card appearance="outlined" class="card">
+    <mat-card-header>
+      <mat-card-title>Scripts</mat-card-title>
+      <mat-card-subtitle>Inline events vs Angular handlers</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <button mat-raised-button onclick="alert('inline onclick executed')">
+        Inline onclick (should be blocked)
+      </button>
+      <button mat-raised-button (click)="onAngularClick()">
+        Angular (click) handler (allowed)
+      </button>
+      <button mat-raised-button (click)="loadExternalScript()">
+        Load external script (should be blocked)
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<router-outlet/>
